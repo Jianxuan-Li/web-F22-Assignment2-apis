@@ -6,20 +6,24 @@ include_once(getenv('ROOT_DIR') . "/lib/BaseController.php");
 class ProductsController extends BaseController{
 
     // list of all products
-    public function get() {
+    // detail of action function params check lib/Route.php
+    public function findAll($url_matchs, $request_method, $options) {
         $productModel = new ProductModel();
         $products = $productModel->getAllProducts();
         $this->returnJson($products);
     }
 
     // find a product by id
-    public function findProductById($id) {
+    public function findById($url_matchs) {
+        // get id from url match
+        $id = $url_matchs[1];
         $productModel = new ProductModel();
-        return $productModel->findProductById($id);
+        $product = $productModel->findProductById($id);
+        $this->returnJson($product);
     }
 
     // insert a product
-    public function insertProduct($data) {
+    public function insertProduct($url_matchs, $params, $data) {
         $productModel = new ProductModel();
         return $productModel->insertProduct($data);
     }

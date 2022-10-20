@@ -1,24 +1,48 @@
 <?php
+include_once("../config.php");
+
 // route class to handle routing
 class Route{
-    // the request uri
-    private $request_uri;
-    // the request method
-    private $request_method;
-    // the request body
-    private $request_body;
-    // the request params
-    private $request_params;
-    // the request headers
-    private $request_headers;
+    private $routes = array();
 
     // constructor
-    public function __construct($request_uri, $request_method, $request_body, $request_params, $request_headers){
-        $this->request_uri = $request_uri;
-        $this->request_method = $request_method;
-        $this->request_body = $request_body;
-        $this->request_params = $request_params;
-        $this->request_headers = $request_headers;
+    public function __construct(){
+        $this->handleRequest();
+    }
+
+    public function handleRequest(){
+        // get the request uri
+        $this->request_uri = $_SERVER['REQUEST_URI'];
+
+        // get the request method
+        $this->request_method = strtolower($_SERVER['REQUEST_METHOD']);
+
+        // get the request body
+        $this->request_body = file_get_contents('php://input');
+
+        // get the request params
+        $this->request_params = $_REQUEST;
+
+        // get the request headers
+        $this->request_headers = getallheaders();
+
+        // get the request ip
+        $this->request_ip = $_SERVER['REMOTE_ADDR'];
+
+        // get the request time
+        $this->request_time = $_SERVER['REQUEST_TIME'];
+
+        // get the request time float
+        $this->request_time_float = $_SERVER['REQUEST_TIME_FLOAT'];
+    }
+
+    // register a regex route
+    public function register($url_regex, $controller_name, $method_name){
+        $this->routes[] = array(
+            "url_regex" => $url_regex,
+            "controller_name" => $controller_name,
+            "method_name" => $method_name
+        );
     }
 
     // get the request uri
@@ -27,8 +51,51 @@ class Route{
     }
 
     // analyze the request uri and route to the right controller
-    public function getController(){
-        // use regex to match the controller and id in uri
-        $regex = "";
+    public function dispatch(){
+        // loop through the routes
+        foreach ($this->routes as $route){
+            // check if the route matches the request uri
+            if (preg_match($route['url_regex'], $this->request_uri, $matches)){
+                // get the controller name
+                $controller_name = $route['controller_name'];
+
+                // get the method name
+                $method_name = $route['method_name'];
+
+                // check if the controller exists
+                if (file_exists("../controllers/" . $controller_name . ".php")){
+                    // include the controller
+                    include_once("../controllers/" . $controller_name . ".php");
+
+                    // check if the controller class exists
+                    if (class_exists($controller_name)){
+                        // create the controller object
+                        $controller = new $controller_name();
+
+                        // check if the controller has the method
+                        if (method_exists($controller, $method_name)){
+                            // call the controller method
+                            $controller->$method_name($matches, $this->request_method, array(
+                                "params" => $this->request_params,
+                                "body" => $this->request_body,
+                                "headers" => $this->request_headers,
+                                "ip" => $this->request_ip,
+                                "time" => $this->request_time,
+                                "time_float" => $this->request_time_float
+                            ));
+                        } else {
+                            // return 405 method not allowed
+                            http_response_code(405);
+                        }
+                    } else {
+                        // return 500 internal server error
+                        http_response_code(500);
+                    }
+                } else {
+                    // return 404 not found
+                    http_response_code(404);
+                }
+            }
+        }
     }
 }
