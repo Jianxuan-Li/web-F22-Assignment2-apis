@@ -33,6 +33,13 @@ class BaseModel{
         $stmt->execute($data);
     }
 
+    // delete by id
+    public function deleteById($table, $id) {
+        $sql = "DELETE FROM $table WHERE id=:id";
+        $stmt = self::$instance->prepare($sql);
+        $stmt->execute(array(':id' => $id));
+    }
+
     // delete a row in table
     public function delete($table, $where) {
         $sql = "DELETE FROM $table WHERE $where";

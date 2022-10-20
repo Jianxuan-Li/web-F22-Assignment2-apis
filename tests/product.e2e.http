@@ -1,0 +1,29 @@
+###
+GET http://localhost/api/v1/product HTTP/1.1
+content-type: application/json
+
+
+###
+GET http://localhost/api/v1/product/1 HTTP/1.1
+content-type: application/json
+
+
+###
+POST http://localhost/api/v1/product HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Product 1"
+}
+
+###
+PATCH http://localhost/api/v1/product/5 HTTP/1.1
+content-type: application/json
+
+{
+  "title": "TRYING TO UPDATE"
+}
+
+###
+DELETE http://localhost/api/v1/product/5 HTTP/1.1
+content-type: application/json

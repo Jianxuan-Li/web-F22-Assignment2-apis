@@ -25,12 +25,12 @@ class ProductModel extends BaseModel{
     }
 
     // update a product
-    public function updateProduct($data, $where) {
-        $this->update('products', $data, $where);
+    public function updateProduct($id, $data) {
+        return $this->update('products', $data, "id=$id");
     }
 
     // delete a product
-    public function deleteProduct($where) {
-        $this->delete('products', $where);
+    public function deleteProduct($id) {
+        return $this->deleteById('products', $id);
     }
 }

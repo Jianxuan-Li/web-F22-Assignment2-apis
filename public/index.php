@@ -7,7 +7,13 @@ include_once("../lib/Route.php");
 $route = new Route();
 
 // register the routes
-$route->register("/^\/api\/v1\/products\/?$/", "ProductsController", "findAll");
-$route->register("/^\/api\/v1\/products\/([0-9]+)\/?$/", "ProductsController", "findById");
+$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "findAll");
+$route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "findById");
+$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduct", "post");
+$route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "updateProduct", "patch");
+$route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "deleteProduct", "delete");
+
+// home page
+$route->register("/\/?$/", "IndexController", "index");
 
 $route->dispatch();
