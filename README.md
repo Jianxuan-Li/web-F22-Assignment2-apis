@@ -8,6 +8,10 @@ We use MVC model to build this project. So we have route and controller and mode
 
 import the sql file in the root of project to your mysql database.
 
+## Database config
+
+change the config in the file `config.php` in the root of project.
+
 ## How to run
 
 1. Clone this project to your local machine
