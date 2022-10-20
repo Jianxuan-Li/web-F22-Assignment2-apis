@@ -27,7 +27,7 @@ class DB {
         } catch (PDOException $e) {
             // use error page if connection failed
             $error = $e->getMessage();
-            include("common/error.php");
+            print($error);
             die();
         }
     }
