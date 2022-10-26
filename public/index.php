@@ -13,6 +13,14 @@ $route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduc
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "updateProduct", "patch");
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "deleteProduct", "delete");
 
+// for cart
+$route->register("/^\/api\/v1\/cart\/?$/", "CartController", "findAll");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "findById");
+$route->register("/^\/api\/v1\/cart\/?$/", "CartController", "insertCart", "post");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "updateCart", "patch");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "deleteCart", "delete");
+// for cart item
+
 // home page
 $route->register("/\/?$/", "IndexController", "index");
 
