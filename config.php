@@ -10,7 +10,7 @@ if (isset($_ENV["JACK_HOST"])) {
         'db_host'        => 'database',
         'db_username'    => 'root',
         'db_password'    => 'tiger',
-        'db_name'        => 'assignment1',
+        'db_name'        => 'assignment2',
         'db_port'        => 3306,
         'db_pconnect'    => true
     );
@@ -20,7 +20,7 @@ if (isset($_ENV["JACK_HOST"])) {
         'db_host'        => '127.0.0.1',
         'db_username'    => 'root',
         'db_password'    => '',
-        'db_name'        => 'assignment1',
+        'db_name'        => 'assignment2',
         'db_port'        => 3306,
         'db_pconnect'    => true
     );
@@ -30,7 +30,7 @@ if (isset($_ENV["JACK_HOST"])) {
         'db_host'        => 'localhost',
         'db_username'    => 'root',
         'db_password'    => '',
-        'db_name'        => 'assignment1',
+        'db_name'        => 'assignment2',
         'db_port'        => 3306,
         'db_pconnect'    => true
     );
