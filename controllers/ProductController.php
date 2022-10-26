@@ -1,5 +1,6 @@
 <?php
 include_once(getenv('ROOT_DIR') . "/models/ProductModel.php");
+include_once(getenv('ROOT_DIR') . "/models/CommentModel.php");
 include_once(getenv('ROOT_DIR') . "/lib/BaseController.php");
 
 // The product controller class
@@ -22,7 +23,12 @@ class ProductController extends BaseController
         $id = $url_matchs[1];
         $productModel = new ProductModel();
         $product = $productModel->findProductById($id);
-        $this->returnJson($product);
+
+        if ($product) {
+            $this->returnJson($product);
+        } else {
+            $this->return404("Product not found");
+        }
     }
 
     // insert a product
@@ -66,6 +72,42 @@ class ProductController extends BaseController
             $productModel = new ProductModel();
             $productModel->deleteProduct($id);
             $this->returnJson(array("deleted" => $id));
+        } catch (Exception $e) {
+            $this->returnJson(array("error" => $e->getMessage()));
+        }
+    }
+
+    // find comments by product id
+    public function findCommentsByProductId($url_matchs)
+    {
+        // get id from url match
+        $id = $url_matchs[1];
+        
+        // get comments by product id
+        $commentModel = new CommentModel();
+        $comments = $commentModel->getCommentsByProductId($id);
+
+        if ($comments) {
+            $this->returnJson($comments);
+        } else {
+            $this->returnJson([]);
+        }
+    }
+
+    // insert new comment by product id
+    public function insertCommentByProductId($url_matchs, $params, $data)
+    {
+        // parse json from post body
+        try {
+            // patch data
+            $commentData = json_decode($data['body'], true);
+            // get id from url match
+            $id = $url_matchs[1];
+            $commentData['product_id'] = $id;
+
+            $commentModel = new CommentModel();
+            $comment = $commentModel->insertComment($commentData);
+            $this->returnJson($comment);
         } catch (Exception $e) {
             $this->returnJson(array("error" => $e->getMessage()));
         }

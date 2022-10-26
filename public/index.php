@@ -7,11 +7,13 @@ include_once("../lib/Route.php");
 $route = new Route();
 
 // register the routes
-$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "findAll");
+$route->register("/^\/api\/v1\/product\/([0-9]+)\/comments\/?$/", "ProductController", "findCommentsByProductId");
+$route->register("/^\/api\/v1\/product\/([0-9]+)\/comments\/?$/", "ProductController", "insertCommentByProductId", "post");
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "findById");
-$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduct", "post");
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "updateProduct", "patch");
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "deleteProduct", "delete");
+$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "findAll");
+$route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduct", "post");
 
 $route->register("/^\/api\/v1\/users\/?$/", "UserController", "findAll");
 $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "findById");
