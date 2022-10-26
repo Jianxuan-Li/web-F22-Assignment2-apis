@@ -7,6 +7,14 @@ class BaseController{
         echo json_encode($data);
     }
 
+    // return 404 error
+    public function return404($msg = "404 Not Found") {
+        header('HTTP/1.1 404 Not Found');
+        header('Content-Type: application/json');
+        echo json_encode(array("error" => $msg));
+    }
+    
+
     // load view by php html file
     public function loadView($viewName, $data = array()) {
         // extract the data
