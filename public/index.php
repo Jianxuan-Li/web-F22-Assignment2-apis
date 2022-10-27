@@ -13,6 +13,8 @@ $route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduc
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "updateProduct", "patch");
 $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "deleteProduct", "delete");
 
+
+
 $route->register("/^\/api\/v1\/users\/?$/", "UserController", "findAll");
 $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "findById");
 $route->register("/^\/api\/v1\/users\/?$/", "UserController", "insertUsers", "post");
