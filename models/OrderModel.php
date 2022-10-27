@@ -8,7 +8,7 @@ class OrderModel  extends BaseModel
     public function findAll()
     {
         $sql = "SELECT * FROM orders";
-        $stmt = $this->db->prepare($sql);
+        $stmt = self::$instance->prepare($sql);
         $stmt->execute();
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $orders;
