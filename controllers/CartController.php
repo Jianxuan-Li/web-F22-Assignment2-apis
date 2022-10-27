@@ -6,10 +6,22 @@ class CartController extends BaseController
     //list of all cart items for a user
     public function findAll($url_matchs, $request_method, $options)
     {
+
         $cartModel = new CartModel();
         $cart = $cartModel->findAll();
         $this->returnJson($cart);
     }
+
+    // find a cart item of user by user id
+    public function findById($url_matchs)
+    {
+        // get id from url match
+        $id = $url_matchs[1];
+        $cartModel = new CartModel();
+        $cart = $cartModel->findById($id);
+        $this->returnJson($cart);
+    }
+
 
     //insert a cart item
     public function insertCart($url_matchs, $params, $data)
@@ -21,6 +33,7 @@ class CartController extends BaseController
             $cart = $cartModel->insertCart($cartData);
             $this->returnJson($cart);
         } catch (Exception $e) {
+            echo $e->getMessage();
             $this->returnJson(array("error" => $e->getMessage()));
         }
     }

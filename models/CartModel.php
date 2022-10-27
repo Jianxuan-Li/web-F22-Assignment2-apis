@@ -1,4 +1,3 @@
-<!-- for cart -->
 <?php
 include_once(getenv('ROOT_DIR') . "/lib/BaseModel.php");
 
@@ -9,59 +8,37 @@ class CartModel extends BaseModel
     public function findAll()
     {
         $sql = "SELECT * FROM cart";
-        $stmt = $this->db->prepare($sql);
+        $stmt = self::$instance->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
-    // get item in cart by id
+
+    // get items in cart by user id
     public function findById($id)
     {
-        $sql = "SELECT * FROM cart WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        $sql = "SELECT * FROM cart WHERE user_id = :id";
+        $stmt = self::$instance->prepare($sql);
+        $stmt->execute(array(':id' => $id));
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // insert item in cart
     public function insertCart($data)
     {
-        $sql = "INSERT INTO cart (user_id, product_id, quantity) VALUES (:user_id, :product_id, :quantity)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":user_id", $data['user_id']);
-        $stmt->bindParam(":product_id", $data['product_id']);
-        $stmt->bindParam(":quantity", $data['quantity']);
-        $stmt->execute();
-        $result = $this->findById($this->db->lastInsertId());
-        return $result;
+        return $this->insert('cart', $data);
     }
 
     // update item in cart
     public function updateCart($id, $data)
     {
-        $sql = "UPDATE cart SET user_id = :user_id, product_id = :product_id, quantity = :quantity WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":user_id", $data['user_id']);
-        $stmt->bindParam(":product_id", $data['product_id']);
-        $stmt->bindParam(":quantity", $data['quantity']);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-        $result = $this->findById($id);
-        return $result;
+        return $this->update('cart', $data, "id=$id");
     }
 
     // delete item in cart
     public function deleteCart($id)
     {
-        $sql = "DELETE FROM cart WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-        $result = $this->findById($id);
-        return $result;
+        return $this->deleteById('cart', $id);
     }
 }
