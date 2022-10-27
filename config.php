@@ -1,10 +1,14 @@
 <?php
 putenv('ROOT_DIR=' . __DIR__);
-include('env.php');
+// if env.php is exist, load it
+if (file_exists(__DIR__ . '/env.php')) {
+    include_once(__DIR__ . '/env.php');
+}
+
 // database config
 // ref: https://www.php.net/manual/en/pdo.connections.php
 // cuz we use different dev-env, so we need to set different db info
-if ($USER == 'JACK' || isset($_ENV["JACK_HOST"])) {
+if (isset($_ENV["JACK_HOST"]) || $USER == 'JACK') {
     // Jack's config 
     $db_params = array(
         'db_host'        => 'database',
@@ -14,7 +18,7 @@ if ($USER == 'JACK' || isset($_ENV["JACK_HOST"])) {
         'db_port'        => 3306,
         'db_pconnect'    => true
     );
-} else if ($USER == 'AAYUSH' || isset($_ENV["AAYUSH_HOST"])) {
+} else if (isset($_ENV["AAYUSH_HOST"]) || $USER == 'AAYUSH') {
     // For Aayush's config
     $db_params = array(
         'db_host'        => 'localhost',

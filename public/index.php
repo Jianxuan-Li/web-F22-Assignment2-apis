@@ -21,9 +21,6 @@ $route->register("/^\/api\/v1\/users\/?$/", "UserController", "insertUsers", "po
 $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "updateUsers", "patch");
 $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "deleteUsers", "delete");
 
-
-
-
 // for cart
 $route->register("/^\/api\/v1\/cart\/?$/", "CartController", "findAll");
 $route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "findById");
@@ -32,7 +29,7 @@ $route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "updateCa
 $route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "deleteCart", "delete");
 
 //for orders
-$route->register("/^\/api\/v1\/cart\/?$/", "OrderController", "findAll");
+$route->register("/^\/api\/v1\/orders\/?$/", "OrderController", "findAll");
 $route->register("/^\/api\/v1\/orders\/([0-9]+)\/?$/", "OrderController", "findById");
 $route->register("/^\/api\/v1\/orders\/?$/", "OrderController", "insertOrder", "post");
 $route->register("/^\/api\/v1\/orders\/([0-9]+)\/?$/", "OrderController", "updateOrder", "patch");
