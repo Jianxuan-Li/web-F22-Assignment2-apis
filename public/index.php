@@ -24,6 +24,13 @@ $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "deleteU
 
 
 
+// for cart
+$route->register("/^\/api\/v1\/cart\/?$/", "CartController", "findAll");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "findById");
+$route->register("/^\/api\/v1\/cart\/?$/", "CartController", "insertCart", "post");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "updateCart", "patch");
+$route->register("/^\/api\/v1\/cart\/([0-9]+)\/?$/", "CartController", "deleteCart", "delete");
+
 // home page
 $route->register("/\/?$/", "IndexController", "index");
 

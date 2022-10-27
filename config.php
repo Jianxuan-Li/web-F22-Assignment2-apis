@@ -1,10 +1,10 @@
 <?php
-putenv('ROOT_DIR='.__DIR__);
-
+putenv('ROOT_DIR=' . __DIR__);
+include('env.php');
 // database config
 // ref: https://www.php.net/manual/en/pdo.connections.php
 // cuz we use different dev-env, so we need to set different db info
-if (isset($_ENV["JACK_HOST"])) {
+if ($USER == 'JACK' || isset($_ENV["JACK_HOST"])) {
     // Jack's config 
     $db_params = array(
         'db_host'        => 'database',
@@ -14,14 +14,14 @@ if (isset($_ENV["JACK_HOST"])) {
         'db_port'        => 3306,
         'db_pconnect'    => true
     );
-} else if (isset($_ENV["AAYUSH_HOST"])) {
+} else if ($USER == 'AAYUSH' || isset($_ENV["AAYUSH_HOST"])) {
     // For Aayush's config
     $db_params = array(
-        'db_host'        => '127.0.0.1',
+        'db_host'        => 'localhost',
         'db_username'    => 'root',
-        'db_password'    => '',
+        'db_password'    => 'root',
         'db_name'        => 'assignment2',
-        'db_port'        => 3306,
+        'db_port'        => 8889,
         'db_pconnect'    => true
     );
 } else {
@@ -45,7 +45,8 @@ function getDSN()
     return "mysql:dbname=" . $dbname . ";host=" . $dbhost . ";port=" . $dbport . ";charset=utf8mb4";
 }
 
-function getDBParam($key){
+function getDBParam($key)
+{
     global $db_params;
     return $db_params[$key];
 }
