@@ -15,6 +15,8 @@ $route->register("/^\/api\/v1\/product\/([0-9]+)\/?$/", "ProductController", "de
 $route->register("/^\/api\/v1\/product\/?$/", "ProductController", "findAll");
 $route->register("/^\/api\/v1\/product\/?$/", "ProductController", "insertProduct", "post");
 
+
+
 $route->register("/^\/api\/v1\/users\/?$/", "UserController", "findAll");
 $route->register("/^\/api\/v1\/users\/([0-9]+)\/?$/", "UserController", "findById");
 $route->register("/^\/api\/v1\/users\/?$/", "UserController", "insertUsers", "post");
