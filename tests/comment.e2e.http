@@ -1,0 +1,14 @@
+###
+GET http://localhost/api/v1/product/1/comments HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost/api/v1/product/1/comments/ HTTP/1.1
+content-type: application/json
+
+{
+  "user_id": 1,
+  "rating": 3.5,
+  "image": "",
+  "content": "The comment"
+}
